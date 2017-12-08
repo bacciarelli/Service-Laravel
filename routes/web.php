@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('brands', 'Admin\BrandController');
+Route::resource('clients', 'Admin\ClientController');
+Route::resource('complaints', 'Admin\ComplaintController');
+Route::resource('device-models', 'Admin\DeviceModelController');
+Route::resource('types', 'Admin\TypeController');
