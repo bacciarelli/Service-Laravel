@@ -4,10 +4,10 @@
 
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">@lang('Brands list')</h3>
+                <h3 class="box-title">@lang('Models list')</h3>
                 <div class="btn-group" style="margin-bottom: 10px">
-                    <a href="{{route('admin.brands.create')}}">
-                        <button type="button" class="btn btn-info" style="margin-left: 10px;">@lang('Add new brand')</button>
+                    <a href="{{route('admin.device-models.create')}}">
+                        <button type="button" class="btn btn-info" style="margin-left: 10px;">@lang('Add new model')</button>
                     </a>
                 </div>
                 <div class="row">
@@ -27,7 +27,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">@lang('Delete brand')</h4>
+                    <h4 class="modal-title" id="myModalLabel">@lang('Delete model')</h4>
                 </div>
                 <div class="modal-body">
                     @lang('Are you sure?')
