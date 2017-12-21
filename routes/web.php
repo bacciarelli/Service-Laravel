@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/admin', 'Admin\ComplaintController@index')->name('admin-dashboard');
 Route::resource('brands', 'Admin\BrandController');
 Route::resource('clients', 'Admin\ClientController');
 Route::resource('complaints', 'Admin\ComplaintController');
