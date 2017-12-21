@@ -6,8 +6,9 @@
     <form role="form" method="post" action="{{route('admin.device-models.store')}}">
         {{ csrf_field() }}
         <div class="box-body">
-            <div>
-                {!! Form::text('type_id', $types, null, ['class' => 'form-control select2', 'placeholder' => trans('Select type')]) !!}
+            <div class="form-group">
+                <label>@lang('Select type')</label>
+                {!! Form::select('type_id', $types, null, ['class' => 'form-control select2', 'placeholder' => trans('Select type')]) !!}
             </div>
             <div class="form-group">
                 <label>@lang('Model name')</label>

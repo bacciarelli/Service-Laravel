@@ -8,8 +8,9 @@
             <input name="_method" type="hidden" value="PUT">
             {{ csrf_field() }}
             <div class="box-body">
-                <div>
-                    {!! Form::text('type_id', $types, $model->type_id, ['class' => 'form-control select2', 'placeholder' => trans('Select type')]) !!}
+                <div class="form-group"
+                    <label>@lang('Select type')</label>>
+                    {!! Form::select('type_id', $types, $model->type_id, ['class' => 'form-control select2', 'placeholder' => trans('Select type')]) !!}
                 </div>
                 <div class="form-group">
                     <label>@lang('Model name')</label>

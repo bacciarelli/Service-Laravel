@@ -12,6 +12,6 @@ class Complaint extends Model
      * @var array
      */
     protected $fillable = [
-        'number', 'client_id', 'fault_description', 'comments', 'repair_description', 'brand_id', 'type_id', 'model_id', 'status'
+        'number', 'client_id', 'fault_description', 'notes', 'repair_description', 'brand_id', 'device_model_id', 'status'
     ];
 }

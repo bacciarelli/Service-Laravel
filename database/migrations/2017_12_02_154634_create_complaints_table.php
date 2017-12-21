@@ -21,7 +21,6 @@ class CreateComplaintsTable extends Migration
             $table->text('comments');
             $table->text('repair_description')->nullable();
             $table->integer('brand_id');
-            $table->integer('type_id');
             $table->integer('model_id');
             $table->integer('status');
             $table->timestamps();
