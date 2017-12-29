@@ -138,6 +138,9 @@ desired effect
 <!-- DataTables -->
 <script src="{{asset("/bower_components/datatables.net/js/jquery.dataTables.min.js")}}"></script>
 <script src="{{asset("/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js")}}"></script>
+
+<script src="{{asset("/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")}}"></script>
+<script src="{{asset("/bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.pl.js")}}"></script>
 <script type="text/javascript">
     var APP_URL = {!! json_encode(url('/')) !!}
 </script>

@@ -1,4 +1,5 @@
-
+@extends('admin.admin_template')
+@section('content')
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">@lang('Edit client')</h3>
@@ -23,3 +24,4 @@
             </div>
         </form>
     </div>
+@stop

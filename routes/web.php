@@ -10,9 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/admin', 'Admin\ComplaintController@index')->name('admin-dashboard');
-Route::resource('brands', 'Admin\BrandController');
-Route::resource('clients', 'Admin\ClientController');
-Route::resource('complaints', 'Admin\ComplaintController');
-Route::resource('device-models', 'Admin\DeviceModelController');
-Route::resource('types', 'Admin\TypeController');
+Route::group(
+    ['prefix' => 'admin', 'as' => 'admin.'], function () {
+        Route::get('/admin', 'Admin\ComplaintController@index')
+            ->name('admin-dashboard');
+        Route::resource('brands', 'Admin\BrandController');
+        Route::resource('clients', 'Admin\ClientController');
+        Route::resource('complaints', 'Admin\ComplaintController');
+        Route::resource('device-models', 'Admin\DeviceModelController');
+        Route::resource('types', 'Admin\TypeController');
+    }
+);

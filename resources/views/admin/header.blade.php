@@ -44,7 +44,7 @@
                                 {{--<a href="/admin/users/{{Sentinel::getUser()->id}}/edit" class="btn btn-default btn-flat">Profile</a>--}}
                             </div>
                             <div class="pull-right">
-                                <a href="{{route('logout')}}" class="btn btn-default btn-flat">Log out</a>
+                                {{--<a href="{{route('logout')}}" class="btn btn-default btn-flat">Log out</a>--}}
                             </div>
                         </li>
                     </ul>
