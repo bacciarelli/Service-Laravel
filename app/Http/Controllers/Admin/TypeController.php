@@ -2,84 +2,117 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\TypeRequest;
+use App\Models\Type;
+use App\Services\TypeService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 
+/**
+ * Class TypeController
+ *
+ * @package App\Http\Controllers\Admin
+ */
 class TypeController extends Controller
 {
+    protected $typeService;
+
+    /**
+     * TypeController constructor.
+     *
+     * @param TypeService $typeService TypeService object
+     */
+    public function __construct(TypeService $typeService)
+    {
+        $this->typeService = $typeService;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request Request object
+     *
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request): View
     {
-        //
+        if ($request->ajax()) {
+            return $this->typeService->ajaxResults($request);
+        }
+
+        return view('admin.type.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.type.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * @param TypeRequest $request Request object
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show($id)
+    public function store(TypeRequest $request): RedirectResponse
     {
-        //
+        if ($this->typeService->save($request->all()) instanceof Type) {
+            return redirect()
+                ->route("admin.types.index")
+                ->with('alert-success', trans('Type was created'));
+        }
+
+        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Type $type)
     {
-        //
+        return view('admin.type.edit', compact('type'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  TypeRequest $request Request object
+     * @param  Type        $type    type model
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(TypeRequest $request, Type  $type): RedirectResponse
     {
-        //
+        if ($this->typeService->save($request->all(), $type) instanceof Type) {
+            return redirect()
+                ->route("admin.types.index")
+                ->with('alert-success', trans('Type was edited'));
+        }
+
+        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Type  $type
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Type  $type)
     {
-        //
+        $type->delete();
+        return redirect()->back()->with('alert-success', trans('Type was deleted'));
     }
 }
