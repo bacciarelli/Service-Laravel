@@ -27,7 +27,7 @@ class BrandService
         if ($request->search != null) {
             $brands = $brands->where('name', 'like', '%' . $request->search . '%');
         }
-        $brands = $brands->paginate(15);
+        $brands = $brands->paginate(10);
 
         return view('admin.brand.index-table', compact('brands'));
     }

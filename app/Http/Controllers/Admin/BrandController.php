@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\BrandRequest;
 use App\Models\Brand;
 use App\Services\BrandService;
 use Illuminate\Http\RedirectResponse;
@@ -59,11 +60,11 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request Request object
+     * @param BrandRequest $request Request object
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(BrandRequest $request): RedirectResponse
     {
         if ($this->brandService->save($request->all()) instanceof Brand) {
             return redirect()
@@ -71,51 +72,48 @@ class BrandController extends Controller
                 ->with('alert-success', trans('Brand was created'));
         }
 
-        return redirect()->back()->with('alert-danger', trans('ERROR!'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Brand $brand)
     {
-        //
+        return view('admin.brand.edit', compact('brand'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  BrandRequest  $request Request object
+     * @param  Brand         $brand   brand model
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(BrandRequest $request, Brand  $brand): RedirectResponse
     {
-        //
+        if ($this->brandService->save($request->all(), $brand) instanceof Brand) {
+            return redirect()
+                ->route("admin.brands.index")
+                ->with('alert-success', trans('Brand was edited'));
+        }
+
+        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Brand  $brand
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Brand  $brand)
     {
-        //
+        $brand->delete();
+        return redirect()->back()->with('alert-success', trans('Brand was deleted'));
     }
 }

@@ -178,7 +178,35 @@ desired effect
                 $('#' + id).submit();
             });
         });
+
+        // init filtering event
+        $('#search').keyup(function() {
+            getItems(1)
+        });
+
+        // get items after loading the page
+        if ($('.box-body.content').length) {
+            getItems(1);
+        }
     });
+
+    // init pagination with filters
+    $(document).on('click', ".pagination a", function (event) {
+        event.preventDefault();
+        var page = $(this).attr('href').split('page=')[1];
+        getItems(page);
+    });
+
+    // returns filtered items
+    function getItems(page) {
+        var string = $('#search').val();
+        $.ajax({
+            url: window.location.href + '?page=' + page + '&search=' + string
+        }).done(function(data) {
+            $('.box-body.content').html(data);
+        })
+    }
+
 </script>
 
 @yield('js')

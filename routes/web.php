@@ -11,8 +11,8 @@
 |
 */
 Route::group(
-    ['prefix' => 'admin', 'as' => 'admin.'], function () {
-        Route::get('/admin', 'Admin\ComplaintController@index')
+    ['as' => 'admin.'], function () {
+        Route::get('/', 'Admin\ComplaintController@index')
             ->name('admin-dashboard');
         Route::resource('brands', 'Admin\BrandController');
         Route::resource('clients', 'Admin\ClientController');
