@@ -2,84 +2,111 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\ClientRequest;
+use App\Models\Client;
+use App\Services\ClientService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 
 class ClientController extends Controller
 {
+    protected $clientService;
+
+    /**
+     * ClientController constructor.
+     *
+     * @param ClientService $clientService ClientService object
+     */
+    public function __construct(ClientService $clientService)
+    {
+        $this->clientService = $clientService;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request Request object
+     *
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request): View
     {
-        //
+        if ($request->ajax()) {
+            return $this->clientService->ajaxResults($request);
+        }
+
+        return view('admin.client.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.client.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * @param ClientRequest $request Request object
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show($id)
+    public function store(ClientRequest $request): RedirectResponse
     {
-        //
+        if ($this->clientService->save($request->all()) instanceof Client) {
+            return redirect()
+                ->route("admin.clients.index")
+                ->with('alert-success', trans('Client was created'));
+        }
+
+        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Client $client)
     {
-        //
+        return view('admin.client.edit', compact('client'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  ClientRequest  $request Request object
+     * @param  Client         $client   client model
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(ClientRequest $request, Client  $client): RedirectResponse
     {
-        //
+        if ($this->clientService->save($request->all(), $client) instanceof Client) {
+            return redirect()
+                ->route("admin.clients.index")
+                ->with('alert-success', trans('Client was edited'));
+        }
+
+        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Client  $client
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Client  $client)
     {
-        //
+        $client->delete();
+        return redirect()->back()->with('alert-success', trans('Client was deleted'));
     }
 }

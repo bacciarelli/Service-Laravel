@@ -8,8 +8,6 @@ use App\Services\BrandService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 /**
@@ -24,7 +22,7 @@ class BrandController extends Controller
     /**
      * BrandController constructor.
      *
-     * @param BrandService $brandService brand model
+     * @param BrandService $brandService BrandService object
      */
     public function __construct(BrandService $brandService)
     {

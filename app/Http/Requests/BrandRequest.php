@@ -37,8 +37,8 @@ class BrandRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'       => trans('Name is required'),
-            'name.unique'         => trans('This name already exist')
+            'name.required' => trans('Name is required'),
+            'name.unique'   => trans('This name already exist')
         ];
     }
 
