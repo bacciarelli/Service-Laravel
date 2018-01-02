@@ -32,4 +32,19 @@ class Complaint extends Model
         ];
     }
 
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function deviceModel()
+    {
+        return $this->belongsTo(DeviceModel::class);
+    }
+
 }

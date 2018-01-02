@@ -5,17 +5,17 @@
             <h3 class="box-title">@lang('Edit model')</h3>
         </div>
         <!-- form start -->
-        <form role="form" method="post" action="{{route('admin.device-models.update', $model->id)}}">
+        <form role="form" method="post" action="{{route('admin.device-models.update', $deviceModel->id)}}">
             <input name="_method" type="hidden" value="PUT">
             {{ csrf_field() }}
             <div class="box-body">
-                <div class="form-group"
+                <div class="form-group">
                     <label>@lang('Select type')</label>>
-                    {!! Form::select('type_id', $types, $model->type_id, ['class' => 'form-control select2', 'placeholder' => trans('Select type')]) !!}
+                    {!! Form::select('type_id', $types, $deviceModel->type_id, ['class' => 'form-control select2', 'placeholder' => trans('Select type')]) !!}
                 </div>
                 <div class="form-group">
                     <label>@lang('Model name')</label>
-                    {{ Form::text('name', $model->name, ['class' => 'form-control', 'placeholder' => trans('Model name')]) }}
+                    {{ Form::text('name', $deviceModel->name, ['class' => 'form-control', 'placeholder' => trans('Model name')]) }}
                 </div>
             </div>
 

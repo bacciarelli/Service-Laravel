@@ -14,4 +14,9 @@ class Type extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function deviceModels()
+    {
+        return $this->hasMany(DeviceModel::class);
+    }
 }

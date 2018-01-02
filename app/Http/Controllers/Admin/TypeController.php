@@ -32,9 +32,9 @@ class TypeController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param \Illuminate\Http\Request $request Request object
+     * @param Request $request Request object
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index(Request $request): View
     {
@@ -48,7 +48,7 @@ class TypeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function create(): View
     {
@@ -60,7 +60,7 @@ class TypeController extends Controller
      *
      * @param TypeRequest $request Request object
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(TypeRequest $request): RedirectResponse
     {
@@ -77,9 +77,9 @@ class TypeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  Type  $type
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function edit(Type $type)
+    public function edit(Type $type): View
     {
         return view('admin.type.edit', compact('type'));
     }
@@ -90,7 +90,7 @@ class TypeController extends Controller
      * @param  TypeRequest $request Request object
      * @param  Type        $type    type model
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(TypeRequest $request, Type  $type): RedirectResponse
     {
@@ -108,9 +108,9 @@ class TypeController extends Controller
      *
      * @param  Type  $type
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function destroy(Type  $type)
+    public function destroy(Type  $type): RedirectResponse
     {
         $type->delete();
         return redirect()->back()->with('alert-success', trans('Type was deleted'));

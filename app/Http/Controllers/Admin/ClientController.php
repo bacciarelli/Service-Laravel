@@ -27,9 +27,9 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param \Illuminate\Http\Request $request Request object
+     * @param Request $request Request object
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index(Request $request): View
     {
@@ -43,7 +43,7 @@ class ClientController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function create(): View
     {
@@ -55,7 +55,7 @@ class ClientController extends Controller
      *
      * @param ClientRequest $request Request object
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(ClientRequest $request): RedirectResponse
     {
@@ -72,9 +72,9 @@ class ClientController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  Client  $client
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function edit(Client $client)
+    public function edit(Client $client): View
     {
         return view('admin.client.edit', compact('client'));
     }
@@ -85,7 +85,7 @@ class ClientController extends Controller
      * @param  ClientRequest  $request Request object
      * @param  Client         $client   client model
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(ClientRequest $request, Client  $client): RedirectResponse
     {
@@ -102,9 +102,9 @@ class ClientController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  Client  $client
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function destroy(Client  $client)
+    public function destroy(Client  $client): RedirectResponse
     {
         $client->delete();
         return redirect()->back()->with('alert-success', trans('Client was deleted'));

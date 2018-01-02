@@ -2,84 +2,120 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\DeviceModelRequest;
+use App\Models\DeviceModel;
+use App\Models\Type;
+use App\Services\DeviceModelService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 
+/**
+ * Class DeviceModelController
+ *
+ * @package App\Http\Controllers\Admin
+ */
 class DeviceModelController extends Controller
 {
+    protected $deviceModelService;
+
+    /**
+     * DeviceModelController constructor.
+     *
+     * @param DeviceModelService $deviceModelService DeviceModelService object
+     */
+    public function __construct(DeviceModelService $deviceModelService)
+    {
+        $this->deviceModelService = $deviceModelService;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request Request object
+     *
+     * @return View
      */
-    public function index()
+    public function index(Request $request): View
     {
-        //
+        if ($request->ajax()) {
+            return $this->deviceModelService->ajaxResults($request);
+        }
+
+        return view('admin.device-model.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        $types = Type::pluck('name', 'id');
+        return view('admin.device-model.create', compact('types'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * @param DeviceModelRequest $request Request object
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function show($id)
+    public function store(DeviceModelRequest $request): RedirectResponse
     {
-        //
+        if ($this->deviceModelService->save($request->all()) instanceof DeviceModel) {
+            return redirect()
+                ->route("admin.device-models.index")
+                ->with('alert-success', trans('Device Model was created'));
+        }
+
+        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  DeviceModel  $deviceModel
+     *
+     * @return View
      */
-    public function edit($id)
+    public function edit(DeviceModel $deviceModel): View
     {
-        //
+        $types = Type::pluck('name', 'id');
+        return view('admin.device-model.edit', compact('deviceModel', 'types'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  DeviceModelRequest  $request Request object
+     * @param  DeviceModel         $deviceModel   deviceModel model
+     *
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(DeviceModelRequest $request, DeviceModel  $deviceModel): RedirectResponse
     {
-        //
+        if ($this->deviceModelService->save($request->all(), $deviceModel) instanceof DeviceModel) {
+            return redirect()
+                ->route("admin.device-models.index")
+                ->with('alert-success', trans('Device Model was edited'));
+        }
+
+        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  DeviceModel  $deviceModel
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(DeviceModel  $deviceModel): RedirectResponse
     {
-        //
+        $deviceModel->delete();
+        return redirect()->back()->with('alert-success', trans('Device Model was deleted'));
     }
 }

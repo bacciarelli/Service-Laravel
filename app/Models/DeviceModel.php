@@ -14,4 +14,15 @@ class DeviceModel extends Model
     protected $fillable = [
         'name', 'type_id'
     ];
+
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
+
 }

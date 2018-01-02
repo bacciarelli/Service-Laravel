@@ -32,9 +32,9 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param \Illuminate\Http\Request $request Request object
+     * @param Request $request Request object
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index(Request $request): View
     {
@@ -48,7 +48,7 @@ class BrandController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function create(): View
     {
@@ -60,7 +60,7 @@ class BrandController extends Controller
      *
      * @param BrandRequest $request Request object
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(BrandRequest $request): RedirectResponse
     {
@@ -77,9 +77,10 @@ class BrandController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  Brand  $brand
-     * @return \Illuminate\Http\Response
+     *
+     * @return View
      */
-    public function edit(Brand $brand)
+    public function edit(Brand $brand): View
     {
         return view('admin.brand.edit', compact('brand'));
     }
@@ -90,7 +91,7 @@ class BrandController extends Controller
      * @param  BrandRequest  $request Request object
      * @param  Brand         $brand   brand model
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(BrandRequest $request, Brand  $brand): RedirectResponse
     {
@@ -107,9 +108,9 @@ class BrandController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  Brand  $brand
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function destroy(Brand  $brand)
+    public function destroy(Brand  $brand): RedirectResponse
     {
         $brand->delete();
         return redirect()->back()->with('alert-success', trans('Brand was deleted'));

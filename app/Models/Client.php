@@ -15,4 +15,9 @@ class Client extends Model
         'name', 'number',
     ];
 
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
 }
