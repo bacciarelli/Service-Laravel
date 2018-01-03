@@ -6,6 +6,7 @@ use App\Http\Requests\DeviceModelRequest;
 use App\Models\DeviceModel;
 use App\Models\Type;
 use App\Services\DeviceModelService;
+use Illuminate\Support\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -47,6 +48,21 @@ class DeviceModelController extends Controller
     }
 
     /**
+     * Returns device models for select
+     *
+     * @param Type $type type model
+     *
+     * @return Collection
+     */
+    public function getDeviceModelByType(Type $type): Collection
+    {
+        return $type->deviceModels()
+            ->orderBy('name')
+            ->pluck('name', 'id')
+            ->prepend(trans('Select device model'), 0);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return View
@@ -66,7 +82,10 @@ class DeviceModelController extends Controller
      */
     public function store(DeviceModelRequest $request): RedirectResponse
     {
-        if ($this->deviceModelService->save($request->all()) instanceof DeviceModel) {
+        if ($this->deviceModelService->save(
+            $request->all()
+        ) instanceof DeviceModel) {
+
             return redirect()
                 ->route("admin.device-models.index")
                 ->with('alert-success', trans('Device Model was created'));
@@ -98,9 +117,16 @@ class DeviceModelController extends Controller
      *
      * @return RedirectResponse
      */
-    public function update(DeviceModelRequest $request, DeviceModel  $deviceModel): RedirectResponse
-    {
-        if ($this->deviceModelService->save($request->all(), $deviceModel) instanceof DeviceModel) {
+    public function update(
+        DeviceModelRequest $request,
+        DeviceModel        $deviceModel
+    ): RedirectResponse {
+
+        if ($this->deviceModelService->save(
+            $request->all(),
+            $deviceModel
+        ) instanceof DeviceModel) {
+
             return redirect()
                 ->route("admin.device-models.index")
                 ->with('alert-success', trans('Device Model was edited'));

@@ -65,6 +65,7 @@ class TypeController extends Controller
     public function store(TypeRequest $request): RedirectResponse
     {
         if ($this->typeService->save($request->all()) instanceof Type) {
+
             return redirect()
                 ->route("admin.types.index")
                 ->with('alert-success', trans('Type was created'));
@@ -98,6 +99,7 @@ class TypeController extends Controller
     public function update(TypeRequest $request, Type  $type): RedirectResponse
     {
         if ($this->typeService->save($request->all(), $type) instanceof Type) {
+
             return redirect()
                 ->route("admin.types.index")
                 ->with('alert-success', trans('Type was edited'));

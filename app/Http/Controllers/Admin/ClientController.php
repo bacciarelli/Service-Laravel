@@ -65,6 +65,7 @@ class ClientController extends Controller
     public function store(ClientRequest $request): RedirectResponse
     {
         if ($this->clientService->save($request->all()) instanceof Client) {
+
             return redirect()
                 ->route("admin.clients.index")
                 ->with('alert-success', trans('Client was created'));
@@ -98,6 +99,7 @@ class ClientController extends Controller
     public function update(ClientRequest $request, Client  $client): RedirectResponse
     {
         if ($this->clientService->save($request->all(), $client) instanceof Client) {
+
             return redirect()
                 ->route("admin.clients.index")
                 ->with('alert-success', trans('Client was edited'));

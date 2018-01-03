@@ -12,7 +12,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <input type="text" id="search" class="form-control" placeholder="@lang('search by number or client')">
+                        <input type="text" id="search" class="form-control" placeholder="@lang('search by number')">
                     </div>
                 </div>
             </div><!-- /.box-header -->

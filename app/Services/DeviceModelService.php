@@ -25,7 +25,8 @@ class DeviceModelService
     {
         $deviceModels = DeviceModel::orderBy('name');
         if ($request->search != null) {
-            $deviceModels = $deviceModels->where('name', 'like', '%' . $request->search . '%');
+            $deviceModels = $deviceModels
+                ->where('name', 'like', '%' . $request->search . '%');
         }
         $deviceModels = $deviceModels->paginate(10);
 
@@ -35,12 +36,13 @@ class DeviceModelService
     /**
      * Create or update deviceModel
      *
-     * @param array      $params new params for deviceModel
-     * @param DeviceModel|null $deviceModel  pass deviceModel object or new will be created
+     * @param array            $params      new params for deviceModel
+     * @param DeviceModel|null $deviceModel pass deviceModel object
+     * or new will be created
      *
      * @return DeviceModel|null
      */
-    public function save(array $params, DeviceModel $deviceModel = null): ?DeviceModel
+    public function save(array $params, DeviceModel $deviceModel = null): DeviceModel
     {
         app()->db->beginTransaction();
 

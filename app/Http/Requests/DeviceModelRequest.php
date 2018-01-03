@@ -4,6 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class DeviceModelRequest
+ *
+ * @package App\Http\Requests
+ */
 class DeviceModelRequest extends FormRequest
 {
     /**
@@ -24,7 +29,8 @@ class DeviceModelRequest extends FormRequest
     public function rules()
     {
         $nameRules = ($this->route('device_model'))
-            ? 'required|unique:device_models,name,' . $this->route('device_model')->id
+            ? 'required|unique:device_models,name,'
+            . $this->route('device_model')->id
             : 'required|unique:device_models,name';
         return [
             'name'    => $nameRules,

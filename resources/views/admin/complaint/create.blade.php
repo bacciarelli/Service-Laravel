@@ -22,8 +22,12 @@
                     {!! Form::select('brand_id', $brands, null, ['class' => 'form-control select2', 'placeholder' => trans('Select brand')]) !!}
                 </div>
                 <div class="form-group">
+                    <label>@lang('Select type')</label>
+                    {!! Form::select('type', $types, null, ['class' => 'form-control select2', 'id' => 'type-select', 'placeholder' => trans('Select type')]) !!}
+                </div>
+                <div class="form-group">
                     <label>@lang('Select device model')</label>
-                    {!! Form::select('device_model_id', $deviceModels, null, ['class' => 'form-control select2', 'placeholder' => trans('Select device model')]) !!}
+                    {!! Form::select('device_model_id', [], null, ['class' => 'form-control select2', 'placeholder' => trans('Select device model')]) !!}
                 </div>
                 <div class="form-group">
                     <label>@lang('Select complaint status')</label>
@@ -47,4 +51,27 @@
             </div>
         </form>
     </div>
+@stop
+@section('js')
+    <script>
+        $('#type-select').change(function () {
+
+            $.ajax({
+                url: "/api/models-by-type/" + $('#type-select').val()
+            })
+            .done(function( data ) {
+                var options = $.map(data, function(text, id) {
+                    return {
+                        id: id,
+                        text: text
+                    }
+                });
+                $('select[name=device_model_id]').find('option').remove();
+                $('select[name=device_model_id]').select2({
+                    minimumResultsForSearch: 7,
+                    data: options
+                })
+            });
+        })
+    </script>
 @stop

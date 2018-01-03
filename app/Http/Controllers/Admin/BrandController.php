@@ -65,6 +65,7 @@ class BrandController extends Controller
     public function store(BrandRequest $request): RedirectResponse
     {
         if ($this->brandService->save($request->all()) instanceof Brand) {
+
             return redirect()
                 ->route("admin.brands.index")
                 ->with('alert-success', trans('Brand was created'));
@@ -97,6 +98,7 @@ class BrandController extends Controller
     public function update(BrandRequest $request, Brand  $brand): RedirectResponse
     {
         if ($this->brandService->save($request->all(), $brand) instanceof Brand) {
+
             return redirect()
                 ->route("admin.brands.index")
                 ->with('alert-success', trans('Brand was edited'));

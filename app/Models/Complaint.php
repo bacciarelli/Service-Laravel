@@ -4,6 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Complaint
+ *
+ * @package App\Models
+ */
 class Complaint extends Model
 {
     /**
@@ -12,16 +17,21 @@ class Complaint extends Model
      * @var array
      */
     protected $fillable = [
-        'number', 'client_id', 'fault_description', 'notes', 'repair_description', 'brand_id', 'device_model_id', 'status'
+        'number', 'client_id', 'fault_description',
+        'notes', 'repair_description', 'brand_id',
+        'device_model_id', 'status'
     ];
 
-    const RECEIVED = 1;
-    const REPAIRED = 2;
+    const RECEIVED  = 1;
+    const REPAIRED  = 2;
     const COMPLETED = 3;
-    const RETURNED = 4;
-    const SCRAPPED = 5;
+    const RETURNED  = 4;
+    const SCRAPPED  = 5;
 
-    public function getStatusText()
+    /**
+     * @return array
+     */
+    public static function getStatusText()
     {
         return [
             self::RECEIVED  => 'received',
@@ -32,16 +42,25 @@ class Complaint extends Model
         ];
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function brand()
     {
         return $this->belongsTo(Brand::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function deviceModel()
     {
         return $this->belongsTo(DeviceModel::class);
