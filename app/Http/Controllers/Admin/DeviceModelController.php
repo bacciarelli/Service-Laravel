@@ -72,13 +72,15 @@ class DeviceModelController extends Controller
                 ->with('alert-success', trans('Device Model was created'));
         }
 
-        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
+        return redirect()
+            ->back()
+            ->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  DeviceModel  $deviceModel
+     * @param DeviceModel $deviceModel device model
      *
      * @return View
      */
@@ -91,8 +93,8 @@ class DeviceModelController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  DeviceModelRequest  $request Request object
-     * @param  DeviceModel         $deviceModel   deviceModel model
+     * @param DeviceModelRequest $request     Request object
+     * @param DeviceModel        $deviceModel deviceModel model
      *
      * @return RedirectResponse
      */
@@ -104,18 +106,23 @@ class DeviceModelController extends Controller
                 ->with('alert-success', trans('Device Model was edited'));
         }
 
-        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
+        return redirect()
+            ->back()
+            ->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  DeviceModel  $deviceModel
+     * @param DeviceModel $deviceModel device model
+     *
      * @return RedirectResponse
      */
     public function destroy(DeviceModel  $deviceModel): RedirectResponse
     {
         $deviceModel->delete();
-        return redirect()->back()->with('alert-success', trans('Device Model was deleted'));
+        return redirect()
+            ->back()
+            ->with('alert-success', trans('Device Model was deleted'));
     }
 }

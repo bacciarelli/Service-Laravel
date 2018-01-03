@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 
+/**
+ * Class ClientController
+ *
+ * @package App\Http\Controllers\Admin
+ */
 class ClientController extends Controller
 {
     protected $clientService;
@@ -65,13 +70,16 @@ class ClientController extends Controller
                 ->with('alert-success', trans('Client was created'));
         }
 
-        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
+        return redirect()
+            ->back()
+            ->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Client  $client
+     * @param Client $client client model
+     *
      * @return View
      */
     public function edit(Client $client): View
@@ -82,8 +90,8 @@ class ClientController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  ClientRequest  $request Request object
-     * @param  Client         $client   client model
+     * @param ClientRequest $request Request object
+     * @param Client        $client  client model
      *
      * @return RedirectResponse
      */
@@ -95,18 +103,23 @@ class ClientController extends Controller
                 ->with('alert-success', trans('Client was edited'));
         }
 
-        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
+        return redirect()
+            ->back()
+            ->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Client  $client
+     * @param Client $client client model
+     *
      * @return RedirectResponse
      */
     public function destroy(Client  $client): RedirectResponse
     {
         $client->delete();
-        return redirect()->back()->with('alert-success', trans('Client was deleted'));
+        return redirect()
+            ->back()
+            ->with('alert-success', trans('Client was deleted'));
     }
 }

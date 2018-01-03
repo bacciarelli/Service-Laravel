@@ -70,13 +70,16 @@ class TypeController extends Controller
                 ->with('alert-success', trans('Type was created'));
         }
 
-        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
+        return redirect()
+            ->back()
+            ->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Type  $type
+     * @param Type $type type model
+     *
      * @return View
      */
     public function edit(Type $type): View
@@ -87,8 +90,8 @@ class TypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  TypeRequest $request Request object
-     * @param  Type        $type    type model
+     * @param TypeRequest $request Request object
+     * @param Type        $type    type model
      *
      * @return RedirectResponse
      */
@@ -100,13 +103,15 @@ class TypeController extends Controller
                 ->with('alert-success', trans('Type was edited'));
         }
 
-        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
+        return redirect()
+            ->back()
+            ->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Type  $type
+     * @param Type $type type model
      *
      * @return RedirectResponse
      */

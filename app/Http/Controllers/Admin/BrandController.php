@@ -70,13 +70,14 @@ class BrandController extends Controller
                 ->with('alert-success', trans('Brand was created'));
         }
 
-        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
+        return redirect()->back()
+            ->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Brand  $brand
+     * @param Brand $brand brand model
      *
      * @return View
      */
@@ -88,8 +89,8 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  BrandRequest  $request Request object
-     * @param  Brand         $brand   brand model
+     * @param BrandRequest $request Request object
+     * @param Brand        $brand   brand model
      *
      * @return RedirectResponse
      */
@@ -101,13 +102,16 @@ class BrandController extends Controller
                 ->with('alert-success', trans('Brand was edited'));
         }
 
-        return redirect()->back()->with('alert-danger', trans('Oops something went wrong!'));
+        return redirect()
+            ->back()
+            ->with('alert-danger', trans('Oops something went wrong!'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Brand  $brand
+     * @param Brand $brand brand model
+     *
      * @return RedirectResponse
      */
     public function destroy(Brand  $brand): RedirectResponse
