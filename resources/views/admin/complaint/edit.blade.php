@@ -11,20 +11,23 @@
             <div class="box-body">
                 <div class="form-group">
                     <label>@lang('Complaint number')</label>
-                    {{--@TODO add js functionality of auto selecting client based on the entered number --}}
                     {{ Form::text('number', $complaint->number, ['id' => 'complaint-number', 'class' => 'form-control', 'placeholder' => trans('Complaint number')]) }}
                 </div>
                 <div class="form-group">
                     <label>@lang('Select client')</label>
-                    {!! Form::select('client_id', $clients, $complaint->client->name, ['class' => 'form-control select2', 'placeholder' => trans('Select client')]) !!}
+                    {!! Form::select('client_id', $clients, $complaint->client->id, ['id' => 'client_id', 'class' => 'form-control select2', 'placeholder' => trans('Select client')]) !!}
                 </div>
                 <div class="form-group">
                     <label>@lang('Select brand')</label>
-                    {!! Form::select('brand_id', $brands, $complaint->brand->name, ['class' => 'form-control select2', 'placeholder' => trans('Select brand')]) !!}
+                    {!! Form::select('brand_id', $brands, $complaint->brand->id, ['class' => 'form-control select2', 'placeholder' => trans('Select brand')]) !!}
+                </div>
+                <div class="form-group">
+                    <label>@lang('Select type')</label>
+                    {!! Form::select('type', $types, $complaint->deviceModel->type->id, ['class' => 'form-control select2', 'id' => 'type-select', 'placeholder' => trans('Select type')]) !!}
                 </div>
                 <div class="form-group">
                     <label>@lang('Select device model')</label>
-                    {!! Form::select('device_model_id', $deviceModels, $complaint->deviceModel->name, ['class' => 'form-control select2', 'placeholder' => trans('Select device model')]) !!}
+                    {!! Form::select('device_model_id', $deviceModels, $complaint->deviceModel->id, ['class' => 'form-control select2', 'placeholder' => trans('Select device model')]) !!}
                 </div>
                 <div class="form-group">
                     <label>@lang('Select complaint status')</label>

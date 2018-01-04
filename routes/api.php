@@ -24,5 +24,6 @@ Route::group(
             '/models-by-type/{type}',
             'Admin\DeviceModelController@getDeviceModelByType'
         );
+        Route::get('/clients/{number}', 'Admin\ClientController@getClientByNumber');
     }
 );

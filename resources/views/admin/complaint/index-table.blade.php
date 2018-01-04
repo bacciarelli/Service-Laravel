@@ -15,7 +15,7 @@
             <td> {{ $complaint->number }} </td>
             <td> {{ $complaint->client->name }} </td>
             <td> {{ $complaint->brand->name }} </td>
-            <td> {{ $complaint->type->name }} </td>
+            <td> {{ $complaint->deviceModel->type->name }} </td>
             <td> {{ $complaint->deviceModel->name }} </td>
             <td>
                 <a href="{{route('admin.complaints.edit', ['id' => $complaint->id])}}" class="btn btn-warning btn-sm">

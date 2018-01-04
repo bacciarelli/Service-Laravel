@@ -103,11 +103,16 @@ class ComplaintController extends Controller
         $clients = Client::orderBy('name')->pluck('name', 'id');
         $brands = Brand::orderBy('name')->pluck('name', 'id');
         $types = Type::orderBy('name')->pluck('name', 'id');
-//        $deviceModels = DeviceModel::orderBy('name')->pluck('name', 'id');
+        $deviceModels = DeviceModel::where('type_id', $complaint->device_model_id)
+            ->orderBy('name')
+            ->pluck('name', 'id');
         $statuses = Complaint::getStatusText();
         return view(
             'admin.complaint.edit',
-            compact('complaint', 'clients', 'brands', 'types', 'statuses')
+            compact(
+                'complaint', 'clients', 'brands',
+                'types', 'deviceModels', 'statuses'
+            )
         );
     }
 

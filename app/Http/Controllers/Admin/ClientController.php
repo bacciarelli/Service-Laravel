@@ -46,6 +46,18 @@ class ClientController extends Controller
     }
 
     /**
+     * Return client object of searched client
+     *
+     * @param string $number searched client number
+     *
+     * @return Client|null
+     */
+    public function getClientByNumber(string $number): ?Client
+    {
+        return Client::where('number', $number)->first();
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return View

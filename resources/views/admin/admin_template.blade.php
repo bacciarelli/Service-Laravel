@@ -141,6 +141,7 @@ desired effect
 
 <script src="{{asset("/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")}}"></script>
 <script src="{{asset("/bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.pl.js")}}"></script>
+<script src="{{asset("/js/lodash.js")}}"></script>
 <script type="text/javascript">
     var APP_URL = {!! json_encode(url('/')) !!}
 </script>
@@ -149,6 +150,27 @@ desired effect
     $(document).ready(function () {
 
         $('#datepicker').datepicker('update');
+
+        // auto select of client based on complaint number
+        $('#complaint-number').keyup(
+            _.debounce(
+                function () {
+                    if ($('#complaint-number').val().length > 3) {
+                        var clientNumber = $('#complaint-number').val().slice(0, 4);
+                        $.ajax({
+                            url: "/api/clients/" + clientNumber
+                        })
+                        .done(function( data ) {
+                            if (data) {
+                                $('#client_id').val(data.id).trigger('change');
+                            } else {
+                                $('#client_id').val('').trigger('change');
+                            }
+                        });
+                    }
+                }, 250
+            )
+        );
 
         //init modal
         $(".submit").click(function (event) {
@@ -164,7 +186,7 @@ desired effect
 
         // init select2
         $('.select2').select2({
-            minimumResultsForSearch: 7,
+            minimumResultsForSearch: 7
         });
 
         //delete modal
@@ -188,6 +210,26 @@ desired effect
         if ($('.box-body.content').length) {
             getItems(1);
         }
+
+        // get device model for select against selected type
+        $('#type-select').change(function () {
+            $.ajax({
+                url: "/api/models-by-type/" + $('#type-select').val()
+            })
+            .done(function( data ) {
+                var options = $.map(data, function(text, id) {
+                    return {
+                        id: id,
+                        text: text
+                    }
+                });
+                $('select[name=device_model_id]').find('option').remove();
+                $('select[name=device_model_id]').select2({
+                    minimumResultsForSearch: 7,
+                    data: options
+                })
+            });
+        })
     });
 
     // init pagination with filters

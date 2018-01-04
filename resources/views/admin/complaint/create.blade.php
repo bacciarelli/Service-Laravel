@@ -10,12 +10,11 @@
             <div class="box-body">
                 <div class="form-group">
                     <label>@lang('Complaint number')</label>
-                    {{--@TODO add js functionality of auto selecting client based on the entered number --}}
                     {{ Form::text('number', null, ['id' => 'complaint-number', 'class' => 'form-control', 'placeholder' => trans('Complaint number')]) }}
                 </div>
                 <div class="form-group">
                     <label>@lang('Select client')</label>
-                    {!! Form::select('client_id', $clients, null, ['class' => 'form-control select2', 'placeholder' => trans('Select client')]) !!}
+                    {!! Form::select('client_id', $clients, null, ['id' => 'client_id', 'class' => 'form-control select2', 'placeholder' => trans('Select client')]) !!}
                 </div>
                 <div class="form-group">
                     <label>@lang('Select brand')</label>
@@ -51,27 +50,4 @@
             </div>
         </form>
     </div>
-@stop
-@section('js')
-    <script>
-        $('#type-select').change(function () {
-
-            $.ajax({
-                url: "/api/models-by-type/" + $('#type-select').val()
-            })
-            .done(function( data ) {
-                var options = $.map(data, function(text, id) {
-                    return {
-                        id: id,
-                        text: text
-                    }
-                });
-                $('select[name=device_model_id]').find('option').remove();
-                $('select[name=device_model_id]').select2({
-                    minimumResultsForSearch: 7,
-                    data: options
-                })
-            });
-        })
-    </script>
 @stop
